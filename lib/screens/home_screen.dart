@@ -28,7 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
       firstName: 'Chris',
       lastName: 'Swingle',
       location: 'Westfield NJ',
-      about: 'Musician and coder');
+      about:
+          'Musician and coder who also enjoys coooking and clothes all typpes of cooll stuff like making sutff',
+      interest: [
+        Interests.art,
+        Interests.coding,
+        Interests.photography,
+        Interests.music,
+        Interests.pickleball,
+        Interests.movies
+      ]);
 
   @override
   Widget build(BuildContext context) {
