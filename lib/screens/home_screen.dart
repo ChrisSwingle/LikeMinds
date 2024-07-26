@@ -3,6 +3,8 @@ import 'package:like_minds/screens/looking_for_screen.dart';
 import 'package:like_minds/screens/post_looking_for_screen.dart';
 import 'package:like_minds/screens/profile_screen.dart';
 
+import '../models/profile.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -22,6 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  final Profile _tempProfile = Profile(
+      firstName: 'Chris',
+      lastName: 'Swingle',
+      location: 'Westfield NJ',
+      about: 'Musician and coder');
+
   @override
   Widget build(BuildContext context) {
     Widget activePage = const LookingForScreen();
@@ -38,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (_selectedPageIndex == 2) {
       _activePageTitle = 'Profile';
-      activePage = const ProfileScreen();
+      activePage = ProfileScreen(
+        profile: _tempProfile,
+      );
     }
 
     return Scaffold(
@@ -49,9 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _selectedPageIndex,
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.set_meal), label: 'Looking for'),
-          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Post'),
-          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Profile'),
+              icon: Icon(Icons.view_list), label: 'Looking for'),
+          BottomNavigationBarItem(icon: Icon(Icons.post_add), label: 'Post'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );
