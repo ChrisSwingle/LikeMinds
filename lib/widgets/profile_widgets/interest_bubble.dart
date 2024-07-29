@@ -9,10 +9,10 @@ class InterestBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-          horizontal: 20.0, vertical: 12.0), // Padding inside the bubble
+          horizontal: 20.0, vertical: 8.0), // Padding inside the bubble
       decoration: BoxDecoration(
         color: Colors.white, // Background color of the bubble
-        borderRadius: BorderRadius.circular(25.0), // Rounded corners
+        borderRadius: BorderRadius.circular(15.0), // Rounded corners
         border: Border.all(
             color: Colors.black, width: 2.0), // Border around the bubble
       ),
@@ -23,6 +23,7 @@ class InterestBubble extends StatelessWidget {
           fontSize: 10, // Text size
           fontWeight: FontWeight.bold, // Text weight
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }

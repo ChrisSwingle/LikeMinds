@@ -37,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
         Interests.music,
         Interests.pickleball,
         Interests.movies
-      ]);
+      ],
+      imageLink: 'lib/images/me.jpg');
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.view_list), label: 'Looking for'),
-          BottomNavigationBarItem(icon: Icon(Icons.post_add), label: 'Post'),
+          BottomNavigationBarItem(icon: Icon(Icons.post_add), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
