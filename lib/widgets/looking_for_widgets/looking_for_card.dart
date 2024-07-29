@@ -18,27 +18,6 @@ class LookingForCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(
-                  lookingFor.title,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                const Spacer(),
-                InterestBubble(
-                  title: lookingFor.interest.name.toString(),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              lookingFor.summary,
-              style: const TextStyle(fontSize: 16, color: Colors.white),
-            ),
-            const SizedBox(height: 15),
-            Row(
-              children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
@@ -48,17 +27,55 @@ class LookingForCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(
-                  width: 5,
+                SizedBox(
+                  width: 10,
                 ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      lookingFor.profile.firstName,
+                      style: const TextStyle(fontSize: 14, color: Colors.white),
+                    ),
+                    Text(
+                      lookingFor.profile.lastName + ":  ",
+                      style: const TextStyle(fontSize: 14, color: Colors.white),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                InterestBubble(
+                  title: lookingFor.interest.name.toString(),
+                ),
+              ],
+            ),
+            Row(
+              children: [
                 Text(
-                  lookingFor.profile.firstName +
-                      ' ' +
-                      lookingFor.profile.lastName,
+                  lookingFor.title,
                   style: const TextStyle(
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white),
+                ),
+                const Spacer(),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              lookingFor.summary,
+              style: const TextStyle(fontSize: 16, color: Colors.white),
+            ),
+            const SizedBox(height: 15),
+            Row(
+              children: [],
+            ),
+            Row(
+              children: [
+                Text(
+                  lookingFor.profile.location,
+                  style: const TextStyle(
+                      color: Colors.white, fontStyle: FontStyle.italic),
                 ),
                 const Spacer(),
                 TextButton.icon(
@@ -69,7 +86,7 @@ class LookingForCard extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.mail),
                   onPressed: () {},
-                )
+                ),
               ],
             ),
           ],

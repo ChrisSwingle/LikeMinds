@@ -58,7 +58,7 @@ class LookingForScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            for (final post in _lookingFor) LookingForCard(lookingFor: post)
+            for (final post in _tempLookingFor) LookingForCard(lookingFor: post)
           ],
         ),
       ),
