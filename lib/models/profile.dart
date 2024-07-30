@@ -24,7 +24,8 @@ class Profile {
       required this.location,
       required this.about,
       required this.interest,
-      required this.imageLink});
+      required this.imageLink,
+      required this.links});
 
   final String firstName;
   final String lastName;
@@ -32,5 +33,6 @@ class Profile {
   final String about;
   final List<Interests> interest;
   final String imageLink;
+  final List<Profile> links;
   // Images
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
-import 'package:like_minds/models/looking_for.dart';
 
+import 'package:like_minds/models/looking_for.dart';
 import 'package:like_minds/models/profile.dart';
-import 'package:like_minds/providers/looking_for_provider.dart';
 import 'package:like_minds/widgets/profile_widgets/interest_bubble.dart';
+import 'package:like_minds/providers/looking_for_provider.dart';
+import 'package:like_minds/models/dummy_data.dart';
 
 class PostLookingForScreen extends ConsumerStatefulWidget {
   const PostLookingForScreen({super.key});
@@ -28,26 +29,15 @@ class _PostLookingForScreen extends ConsumerState<PostLookingForScreen> {
   final TextEditingController _controllerTitle = TextEditingController();
   final TextEditingController _controllerSummary = TextEditingController();
 
-  final Profile _tempProfile = Profile(
-      firstName: 'Chris',
-      lastName: 'Swingle',
-      location: 'Westfield NJ',
-      about:
-          'Musician and coder who also enjoys coooking and clothes all typpes of cooll stuff like making sutff',
-      interest: [
-        Interests.art,
-        Interests.coding,
-        Interests.photography,
-        Interests.music,
-        Interests.pickleball,
-        Interests.movies
-      ],
-      imageLink: 'lib/images/me.jpg');
-
   void _filterOptions(String query) {
     setState(() {
       _interests = Interests.values
-          .where((option) => option.name.contains(query.toLowerCase()))
+          .where((interest) => interest
+              .toString()
+              .split('.')
+              .last
+              .toLowerCase()
+              .contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -65,9 +55,9 @@ class _PostLookingForScreen extends ConsumerState<PostLookingForScreen> {
   }
 
   void _saveLookingFor() {
-    ref.read(LookingForProvider.notifier).addLookingFor(
+    ref.read(lookingForProvider.notifier).addLookingFor(
           LookingFor(
-            profile: _tempProfile,
+            profile: tempProfile,
             title: _controllerTitle.text,
             summary: _controllerSummary.text,
             interest: strToInterest(_selectedInterests!),
@@ -171,6 +161,9 @@ class _PostLookingForScreen extends ConsumerState<PostLookingForScreen> {
                 },
               ),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             ElevatedButton(
               onPressed: () {
                 _confirmLookingFor();
@@ -225,7 +218,10 @@ class _PostLookingForScreen extends ConsumerState<PostLookingForScreen> {
                 Navigator.of(context).pop(); // Close the dialog
                 // Add your post action here
                 ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Post confirmed!')));
+                  const SnackBar(
+                    content: Text('Post confirmed!'),
+                  ),
+                );
               },
               child: const Text(
                 'Post',

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:like_minds/models/looking_for.dart';
-import 'package:like_minds/screens/profile_screen.dart';
 import 'package:like_minds/widgets/looking_for_widgets/looking_for_mutuals.dart';
 import 'package:like_minds/widgets/profile_widgets/interest_bubble.dart';
+import 'package:like_minds/widgets/profile_widgets/profile_settings.dart';
 
 class LookingForCard extends StatelessWidget {
   const LookingForCard({super.key, required this.lookingFor});
@@ -30,10 +30,9 @@ class LookingForCard extends StatelessWidget {
                 child: SingleChildScrollView(
                   controller: scrollController,
                   child: Container(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ProfileScreen(
-                        profile: lookingFor.profile,
-                      )),
+                    padding: const EdgeInsets.all(16.0),
+                    child: const ProfileSettings(),
+                  ),
                 ),
               );
             },
@@ -49,11 +48,11 @@ class LookingForCard extends StatelessWidget {
         builder: (BuildContext context) {
           return DraggableScrollableSheet(
             initialChildSize:
-                0.5, // Initial size of the sheet as a fraction of the screen height
+                0.9, // Initial size of the sheet as a fraction of the screen height
             minChildSize:
-                0.5, // Prevents the sheet from being dragged down beyond this point
+                0.9, // Prevents the sheet from being dragged down beyond this point
             maxChildSize:
-                0.5, // Prevents the sheet from being dragged up beyond this point
+                0.9, // Prevents the sheet from being dragged up beyond this point
             expand: false, // Keeps the sheet at the initial size
             builder: (BuildContext context, ScrollController scrollController) {
               return SafeArea(
