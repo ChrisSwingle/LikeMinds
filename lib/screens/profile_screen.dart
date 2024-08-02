@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: const TextStyle(color: Colors.white, fontSize: 20),
             ),
             const SizedBox(height: 30),
-            InterestsList(interests: widget.profile.interest),
+            InterestsList(interests: widget.profile.interests),
             const SizedBox(height: 30),
             About(about: widget.profile.about),
           ],

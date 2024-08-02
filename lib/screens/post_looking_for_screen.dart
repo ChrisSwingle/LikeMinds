@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 
 import 'package:like_minds/models/looking_for.dart';
-import 'package:like_minds/models/profile.dart';
 import 'package:like_minds/widgets/profile_widgets/interest_bubble.dart';
 import 'package:like_minds/providers/looking_for_provider.dart';
 import 'package:like_minds/models/dummy_data.dart';
+import 'package:like_minds/models/interests.dart';
 
 class PostLookingForScreen extends ConsumerStatefulWidget {
   const PostLookingForScreen({super.key});
@@ -21,8 +21,8 @@ class _PostLookingForScreen extends ConsumerState<PostLookingForScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _interestsStr =
-      Interests.values.map((e) => e.toString().split('.').last).toList();
-  var _interests = Interests.values;
+      Interest.values.map((e) => e.toString().split('.').last).toList();
+  var _filteredInterestsModel = availableInterestsModel;
 
   String? _selectedInterests;
   final TextEditingController _controllerInterest = TextEditingController();
@@ -31,14 +31,19 @@ class _PostLookingForScreen extends ConsumerState<PostLookingForScreen> {
 
   void _filterOptions(String query) {
     setState(() {
-      _interests = Interests.values
-          .where((interest) => interest
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(query.toLowerCase()))
-          .toList();
+      _filteredInterestsModel = availableInterestsModel.where((interestModel) {
+        bool interestContainsVal = interestModel.interest
+            .toString()
+            .split('.')
+            .last
+            .toLowerCase()
+            .contains(query);
+        bool categoriesContainsVal = interestModel.categories.map((category) {
+          return category.toString().split('.').last.toLowerCase();
+        }).contains(query);
+
+        return interestContainsVal || categoriesContainsVal;
+      }).toList();
     });
   }
 
@@ -49,8 +54,8 @@ class _PostLookingForScreen extends ConsumerState<PostLookingForScreen> {
     }
   }
 
-  Interests strToInterest(String str) {
-    return Interests.values
+  Interest strToInterest(String str) {
+    return Interest.values
         .firstWhere((e) => e.toString() == 'Interests.' + str);
   }
 
@@ -137,7 +142,7 @@ class _PostLookingForScreen extends ConsumerState<PostLookingForScreen> {
             const SizedBox(height: 16.0),
             Expanded(
               child: ListView.builder(
-                itemCount: _interests.length,
+                itemCount: _filteredInterestsModel.length,
                 itemBuilder: (context, index) {
                   return Align(
                     alignment: Alignment.topCenter,
@@ -145,14 +150,19 @@ class _PostLookingForScreen extends ConsumerState<PostLookingForScreen> {
                       width: 300,
                       child: ListTile(
                         title: InterestBubble(
-                            title: _interests[index].name.toString()),
+                            title: _filteredInterestsModel[index]
+                                .interest
+                                .name
+                                .toString()),
                         onTap: () {
                           setState(() {
-                            _selectedInterests =
-                                _interests[index].toString().split('.').last;
+                            _selectedInterests = _filteredInterestsModel[index]
+                                .interest
+                                .name
+                                .toString();
                             _controllerInterest.text = _selectedInterests!;
-                            _interests =
-                                Interests.values; // Reset the filtered list
+                            _filteredInterestsModel =
+                                availableInterestsModel; // Reset the filtered list
                           });
                         },
                       ),

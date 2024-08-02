@@ -1,5 +1,6 @@
 import 'package:like_minds/models/looking_for.dart';
 import 'package:like_minds/models/profile.dart';
+import 'package:like_minds/models/interests.dart';
 
 final Profile tempProfile = Profile(
     firstName: 'Chris',
@@ -7,13 +8,13 @@ final Profile tempProfile = Profile(
     location: 'Westfield NJ',
     about:
         'Musician and coder who also enjoys coooking and clothes all typpes of cooll stuff like making sutff',
-    interest: [
-      Interests.art,
-      Interests.coding,
-      Interests.photography,
-      Interests.music,
-      Interests.pickleball,
-      Interests.movies
+    interests: [
+      Interest.art,
+      Interest.coding,
+      Interest.photography,
+      Interest.music,
+      Interest.pickleball,
+      Interest.movies
     ],
     imageLink: 'lib/images/me.jpg',
     links: links);
@@ -24,25 +25,25 @@ final List<LookingFor> _tempLookingFor = [
       title: 'Tring to play pickle ball',
       summary:
           'I am trying to play some pickle ball at some courts in westfield. I am pretty decent at the game and I am easy to play with. Competive enough but I wont argue too much on outs.',
-      interest: Interests.pickleball),
+      interest: Interest.pickleball),
   LookingFor(
       profile: tempProfile,
       title: 'Tring to play soccer',
       summary:
           'I am trying to play some pickle ball at some courts in westfield. I am pretty decent at the game and I am easy to play with. Competive enough but I wont argue too much on outs.',
-      interest: Interests.soccer),
+      interest: Interest.soccer),
   LookingFor(
       profile: tempProfile,
       title: 'Tring to make an app',
       summary:
           'I am trying to play some pickle ball at some courts in westfield. I am pretty decent at the game and I am easy to play with. Competive enough but I wont argue too much on outs.',
-      interest: Interests.coding),
+      interest: Interest.coding),
   LookingFor(
       profile: tempProfile,
       title: 'Tring to take pictures',
       summary:
           'I am trying to play some pickle ball at some courts in westfield. I am pretty decent at the game and I am easy to play with. Competive enough but I wont argue too much on outs.',
-      interest: Interests.photography)
+      interest: Interest.photography)
 ];
 final links = [
   Profile(
@@ -51,13 +52,13 @@ final links = [
       location: 'NY, NY',
       about:
           'Musician and coder who also enjoys coooking and clothes all typpes of cooll stuff like making sutff',
-      interest: [
-        Interests.art,
-        Interests.coding,
-        Interests.photography,
-        Interests.music,
-        Interests.pickleball,
-        Interests.movies
+      interests: [
+        Interest.art,
+        Interest.coding,
+        Interest.photography,
+        Interest.music,
+        Interest.pickleball,
+        Interest.movies
       ],
       imageLink: 'lib/images/me.jpg',
       links: []),
@@ -67,13 +68,13 @@ final links = [
       location: 'NY, NY',
       about:
           'Musician and coder who also enjoys coooking and clothes all typpes of cooll stuff like making sutff',
-      interest: [
-        Interests.art,
-        Interests.coding,
-        Interests.photography,
-        Interests.music,
-        Interests.pickleball,
-        Interests.movies
+      interests: [
+        Interest.art,
+        Interest.coding,
+        Interest.photography,
+        Interest.music,
+        Interest.pickleball,
+        Interest.movies
       ],
       imageLink: 'lib/images/me.jpg',
       links: [])

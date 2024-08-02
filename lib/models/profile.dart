@@ -1,21 +1,4 @@
-enum Interests {
-  sports,
-  art,
-  music,
-  theatre,
-  movies,
-  food,
-  travel,
-  coding,
-  photography,
-  basketball,
-  baseball,
-  soccer,
-  golf,
-  spikeball,
-  pickleball,
-  anime,
-}
+import 'package:like_minds/models/interests.dart';
 
 class Profile {
   Profile(
@@ -23,7 +6,7 @@ class Profile {
       required this.lastName,
       required this.location,
       required this.about,
-      required this.interest,
+      required this.interests,
       required this.imageLink,
       required this.links});
 
@@ -31,7 +14,7 @@ class Profile {
   final String lastName;
   final String location;
   final String about;
-  final List<Interests> interest;
+  final List<Interest> interests;
   final String imageLink;
   final List<Profile> links;
   // Images

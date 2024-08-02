@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:like_minds/models/profile.dart';
+import 'package:like_minds/models/interests.dart';
 import 'package:like_minds/providers/filters_provider.dart';
 import 'package:like_minds/widgets/profile_widgets/interest_bubble.dart';
 
@@ -15,17 +15,27 @@ class EditFiltersScreen extends ConsumerStatefulWidget {
 }
 
 class _EditFiltersScreenState extends ConsumerState<EditFiltersScreen> {
-  List<Interests> _interests = Interests.values;
+  var _filteredInterestsModel = availableInterestsModel;
 
   void _filterOptions(String query) {
     setState(() {
-      _interests = Interests.values
-          .where((option) => option.name.contains(query.toLowerCase()))
-          .toList();
+      _filteredInterestsModel = availableInterestsModel.where((interestModel) {
+        bool interestContainsVal = interestModel.interest
+            .toString()
+            .split('.')
+            .last
+            .toLowerCase()
+            .contains(query);
+        bool categoriesContainsVal = interestModel.categories.map((category) {
+          return category.toString().split('.').last.toLowerCase();
+        }).contains(query);
+
+        return interestContainsVal || categoriesContainsVal;
+      }).toList();
     });
   }
 
-  void _confirmFilters(List<Interests> filters) {
+  void _confirmFilters(List<Interest> filters) {
     ref.read(filtersProvider.notifier).setFilters(filters);
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -44,7 +54,7 @@ class _EditFiltersScreenState extends ConsumerState<EditFiltersScreen> {
   Widget build(BuildContext context) {
     var filters = ref.watch(filtersProvider);
 
-    void removeFilter(Interests interest) {
+    void removeFilter(Interest interest) {
       filters.remove(interest);
     }
 
@@ -108,9 +118,9 @@ class _EditFiltersScreenState extends ConsumerState<EditFiltersScreen> {
             const SizedBox(height: 16.0),
             Expanded(
               child: ListView.builder(
-                itemCount: _interests.length,
+                itemCount: _filteredInterestsModel.length,
                 itemBuilder: (context, index) {
-                  final interest = _interests[index];
+                  final interest = _filteredInterestsModel[index].interest;
                   final isSelected = filters.contains(interest);
                   return Align(
                     alignment: Alignment.topCenter,

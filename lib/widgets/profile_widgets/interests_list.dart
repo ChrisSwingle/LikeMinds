@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:like_minds/models/profile.dart';
+import 'package:like_minds/models/interests.dart';
 import 'package:like_minds/widgets/profile_widgets/interest_bubble.dart';
 
 class InterestsList extends StatelessWidget {
   const InterestsList({super.key, required this.interests});
 
-  final List<Interests> interests;
+  final List<Interest> interests;
 
   @override
   Widget build(BuildContext context) {

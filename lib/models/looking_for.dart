@@ -1,4 +1,5 @@
 import 'package:like_minds/models/profile.dart';
+import 'package:like_minds/models/interests.dart';
 
 class LookingFor {
   LookingFor(
@@ -10,5 +11,5 @@ class LookingFor {
   final Profile profile;
   final String title;
   final String summary;
-  final Interests interest;
+  final Interest interest;
 }

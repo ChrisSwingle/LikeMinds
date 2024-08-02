@@ -20,25 +20,15 @@ class _EditProfileScreen extends ConsumerState<EditProfileScreen> {
   late final Profile profile;
 
   final _formKey = GlobalKey<FormState>();
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    profile = ref.read(profileProvider);
-    _controllerFirstName.text = profile.firstName;
-    _controllerLastName.text = profile.lastName;
-    _controllerAbout.text = profile.about;
-    _controllerLocation.text = profile.location;
-    profileInterests = profile.interests;
-  }
 
   final TextEditingController _controllerFirstName = TextEditingController();
   final TextEditingController _controllerLastName = TextEditingController();
   final TextEditingController _controllerAbout = TextEditingController();
   final TextEditingController _controllerLocation = TextEditingController();
-
+  final TextEditingController _controllerInterests = TextEditingController();
   List<Interest> profileInterests = [];
   String imageLink = '';
-  var _filteredInterestsModel = availableInterestsModel;
+  List<Interest> _interests = Interest.values;
 
   void back() {
     Navigator.of(context).pop();
@@ -67,19 +57,9 @@ class _EditProfileScreen extends ConsumerState<EditProfileScreen> {
 
   void _filterOptions(String query) {
     setState(() {
-      _filteredInterestsModel = availableInterestsModel.where((interestModel) {
-        bool interestContainsVal = interestModel.interest
-            .toString()
-            .split('.')
-            .last
-            .toLowerCase()
-            .contains(query);
-        bool categoriesContainsVal = interestModel.categories.map((category) {
-          return category.toString().split('.').last.toLowerCase();
-        }).contains(query);
-
-        return interestContainsVal || categoriesContainsVal;
-      }).toList();
+      _interests = Interest.values
+          .where((option) => option.name.contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -208,6 +188,7 @@ class _EditProfileScreen extends ConsumerState<EditProfileScreen> {
                 height: 10,
               ),
               TextFormField(
+                // controller: _controllerInterests,
                 decoration: const InputDecoration(
                   labelText: 'Search Interests',
                   border: OutlineInputBorder(),
@@ -218,9 +199,9 @@ class _EditProfileScreen extends ConsumerState<EditProfileScreen> {
               const SizedBox(height: 16.0),
               Expanded(
                 child: ListView.builder(
-                  itemCount: _filteredInterestsModel.length,
+                  itemCount: _interests.length,
                   itemBuilder: (context, index) {
-                    final interest = _filteredInterestsModel[index].interest;
+                    final interest = _interests[index];
                     final isSelected = profileInterests.contains(interest);
                     return Align(
                       alignment: Alignment.topCenter,
@@ -230,6 +211,8 @@ class _EditProfileScreen extends ConsumerState<EditProfileScreen> {
                           title: InterestBubble(
                             title: interest.name.toString(),
                           ),
+                          // tileColor:
+                          //     isSelected ? Colors.blue.withOpacity(0.5) : null,
                           onTap: () {
                             setState(() {
                               if (isSelected) {
@@ -244,6 +227,8 @@ class _EditProfileScreen extends ConsumerState<EditProfileScreen> {
                                   ),
                                 );
                               }
+                              _controllerInterests.text =
+                                  profileInterests.join(', ');
                             });
                           },
                         ),
