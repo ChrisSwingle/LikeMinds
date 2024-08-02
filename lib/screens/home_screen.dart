@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_minds/providers/profile_provider.dart';
+import 'package:like_minds/screens/edit_filters_screen.dart';
+import 'package:like_minds/screens/edit_profile_screen.dart';
 
 import 'package:like_minds/screens/looking_for_screen.dart';
 import 'package:like_minds/screens/post_looking_for_screen.dart';
 import 'package:like_minds/screens/profile_screen.dart';
-import 'package:like_minds/widgets/profile_widgets/profile_settings.dart';
 
 import '../models/profile.dart';
 
@@ -27,36 +28,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.initState();
   }
 
-  void openProfileSetting() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true, // Allow the modal to take more space
-      builder: (BuildContext context) {
-        return FractionallySizedBox(
-          heightFactor: 0.3,
-          child: DraggableScrollableSheet(
-            initialChildSize:
-                1.0, // Initial size of the sheet as a fraction of the screen height
-            minChildSize:
-                1.0, // Prevents the sheet from being dragged down beyond this point
-            maxChildSize:
-                1.0, // Prevents the sheet from being dragged up beyond this point
-            expand: false, // Keeps the sheet at the initial size
-            builder: (BuildContext context, ScrollController scrollController) {
-              return LayoutBuilder(builder: (context, constraints) {
-                return Container(
-                  width: constraints.maxWidth, // Full width of the screen
-                  padding: const EdgeInsets.all(16.0),
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: const ProfileSettings(),
-                  ),
-                );
-              });
-            },
-          ),
-        );
-      },
+  void openEditProfile() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => const EditProfileScreen(),
+      ),
+    );
+  }
+
+  void openEditFilters() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => const EditFiltersScreen(),
+      ),
     );
   }
 
@@ -95,10 +79,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_activePageTitle),
-        actions: _selectedPageIndex == 2
+        actions: _selectedPageIndex == 2 || _selectedPageIndex == 0
             ? [
                 IconButton(
-                  onPressed: openProfileSetting,
+                  onPressed: _selectedPageIndex == 2
+                      ? openEditProfile
+                      : openEditFilters,
                   icon: const Icon(Icons.settings),
                 ),
               ]
